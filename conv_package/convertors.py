@@ -18,14 +18,23 @@ def binary_to_decimal(value):
     decimal_value = [''for x in splitted]
     try:
         IP_position = 0
-        for x in splitted:
+        for x in splitted:  
+            if len(x) != 8:
+                messagebox.showerror("Value error","The value inserted is not 8-bit. Please insert 8-bit binary value")
+                top.destroy()
+                return None
+
             value = 0
             iterator = '76543210'
             for i in range(8):
+                if x[i] != '0' and x[i] != '1':
+                    messagebox.showerror("Value error", "The value inserted are not correct, please try again")   
+                    top.destroy()
+                    return None       
                 if x[i] == '1':
                  value += 2**int(iterator[i])
-        decimal_value[IP_position] = str(value)
-        IP_position += 1
+            decimal_value[IP_position] = str(value)
+            IP_position += 1
     
     except:
            messagebox.showerror("Value error", "The value inserted are not correct, please try again")   
@@ -53,6 +62,10 @@ def decimal_to_binary(value):
 
     try:
         for x in splitted:
+            if int(x) < 0 or int(x) > 255:
+                messagebox.showerror("Value error", "The value inserted are not correct, please try again")   
+                top.destroy()
+                return None       
             decimal = int(x)
             iterator = '76543210'
             value = ['0','0','0','0','0','0','0','0']
@@ -79,6 +92,7 @@ def decimal_to_binary(value):
         sub_frame = LabelFrame(top,padx = 5, pady = 5)
         sub_frame.grid(row = 9, column = 0,padx = 100, pady = 20)
         Label(sub_frame,text = f"Result: {converted}").grid(row= 0, column = 0)
+   
    
     
    
